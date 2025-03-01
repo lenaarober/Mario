@@ -6,3 +6,4 @@ Para compilar:
 
 Para ejecutar:
 `./window_mario`
+
