@@ -17,6 +17,10 @@ const int h = Colors::black;
 const int g = 0xaaaaaa;
 const int w = 0x8d573c;
 const int a = 0xfad6a5;
+// Block colors
+const int o = 0xff8000;
+const int p = 0xffd6bb;
+
 
 // Skin mario
 const vector<vector<int>> mario_sprite = {
@@ -58,6 +62,26 @@ const vector<vector<int>> goomba_sprite = {
     {_, _, h, h, h, h, h, _, _, h, h, h,    h, h, _} 
 };
 
+// Block
+const vector<vector<int>> block_floor_sprite = {
+    {o, p, p, p, p, p, p, p, p, h, o, p, p, p, p, o},
+    {p, o, o, o, o, o, o, o, o, h, p, o, o, o, o, h},
+    {p, o, o, o, o, o, o, o, o, h, p, o, o, o, o, h},
+    {p, o, o, o, o, o, o, o, o, h, p, o, o, o, o, h},
+    {p, o, o, o, o, o, o, o, o, h, p, h, o, o, o, h},
+    {p, o, o, o, o, o, o, o, o, h, o, h, h, h, h, o},
+    {p, o, o, o, o, o, o, o, o, h, p, p, p, p, p, h},
+    {p, o, o, o, o, o, o, o, o, h, p, o, o, o, o, h},
+    {p, o, o, o, o, o, o, o, o, h, p, o, o, o, o, h},
+    {p, o, o, o, o, o, o, o, o, h, p, o, o, o, o, h},
+    {h, h, o, o, o, o, o, o, h, p, p, o, o, o, o, h},
+    {p, p, h, h, o, o, o, o, h, p, o, o, o, o, o, h},
+    {p, o, p, p, h, h, h, h, p, p, o, o, o, o, o, h},
+    {p, o, o, o, p, p, p, h, p, o, o, o, o, o, o, h},
+    {p, o, o, o, o, o, o, h, p, o, o, o, o, o, h, h},
+    {o, h, h, h, h, h, h, o, p, h, h, h, h, h, h, o}
+};
+
 const char arrow_up = 17;
 const char arrow_down = 18;
 const char arrow_left = 20;
@@ -79,9 +103,18 @@ int main() {
     pro2::Window window("Mario Bros", WIDTH, HEIGHT, ZOOM);
 
     window.clear();
-    // Poner a mario
+
+    // Set background
+    // Floor
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 16; ++j) {
+                put_sprite(window, {0 + j*16, HEIGHT - (16 + i*16)}, block_floor_sprite);
+        }
+    }
+    
+    // Set mario 
     put_sprite(window, {WIDTH / 2 - 6, HEIGHT / 2 - 8}, mario_sprite);
-    // Poner un goomba
+    // Set goomba
     put_sprite(window, {8, HEIGHT - 16}, goomba_sprite);
     int i = 6;
     int j = 8;
@@ -90,29 +123,55 @@ int main() {
     int I_goomba = 1;
     while (window.next_frame()) {
         window.clear();
+        
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 16; ++j) {
+                put_sprite(window, {0 + j*16, HEIGHT - (16 + i*16)}, block_floor_sprite);
+            }
+        }    
         put_sprite(window, {i_goomba, j_goomba}, goomba_sprite);
         put_sprite(window, {WIDTH / 2 - i, HEIGHT / 2 - j}, mario_sprite);
         if(window.is_key_pressed(arrow_up)) {
             j += 1;
             window.clear();
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 16; ++j) {
+                    put_sprite(window, {0 + j*16, HEIGHT - (16 + i*16)}, block_floor_sprite);
+                }
+            }
             put_sprite(window, {WIDTH / 2 - i, HEIGHT / 2 - j}, mario_sprite);
             put_sprite(window, {i_goomba, j_goomba}, goomba_sprite);
         }
          if(window.is_key_pressed(arrow_left)) {
             i += 1;
             window.clear();
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 16; ++j) {
+                    put_sprite(window, {0 + j*16, HEIGHT - (16 + i*16)}, block_floor_sprite);
+                }
+            }
             put_sprite(window, {WIDTH / 2 - i, HEIGHT / 2 - j}, mario_sprite);
             put_sprite(window, {i_goomba, j_goomba}, goomba_sprite);
         }
          if(window.is_key_pressed(arrow_down)) {
             j -= 1;
             window.clear();
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 16; ++j) {
+                    put_sprite(window, {0 + j*16, HEIGHT - (16 + i*16)}, block_floor_sprite);
+                }
+            }
             put_sprite(window, {WIDTH / 2 - i, HEIGHT / 2 - j}, mario_sprite);
             put_sprite(window, {i_goomba, j_goomba}, goomba_sprite);
         }
          if(window.is_key_pressed(arrow_right)) {
             i -= 1;
-                ;
+            window.clear();
+            for (int i = 0; i < 3; ++i) {
+                for (int j = 0; j < 16; ++j) {
+                    put_sprite(window, {0 + j*16, HEIGHT - (16 + i*16)}, block_floor_sprite);
+                }
+            }
             put_sprite(window, {WIDTH / 2 - i, HEIGHT / 2 - j}, mario_sprite);
             put_sprite(window, {i_goomba, j_goomba}, goomba_sprite);
         }
